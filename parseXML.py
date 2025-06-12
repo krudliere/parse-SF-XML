@@ -13,6 +13,7 @@ def parsePrint(filename):
         print(f"File {file_path} does not exist.")
         return
     """
+
     tree = ET.parse(file_path)
     root = tree.getroot()
 
@@ -24,19 +25,27 @@ def parsePrint(filename):
 
     # Define the namespace
     ns = {'ns': namespace}
+    
+    filetype = "layout"
 
-    # Find all fieldItem elements with namespace
-    fieldItems = root.findall('.//ns:flexiPageRegions/ns:itemInstances/ns:fieldInstance/ns:fieldItem', ns)
+    if(filetype in filename):
+        print(f"layout file: {filename}")
+        # Find all field elements with namespace in layouts
+        fieldItems = root.findall('.//ns:layoutSections/ns:layoutColumns/ns:layoutItems/ns:field', ns)
+    else:
+        # Find all fieldItem elements with namespace in flexipages
+        fieldItems = root.findall('.//ns:flexiPageRegions/ns:itemInstances/ns:fieldInstance/ns:fieldItem', ns)
 
     data = []
 
     for fieldItem in fieldItems:
         print(fieldItem.text.replace("Record.", ""))  # Debug: Show each field item tag and attributes
         data.append([fieldItem.text.replace("Record.", "")])
+    
     # Writing to CSV file
-    with open(output_file, "a", newline="") as file:
-        writer = csv.writer(file)
-        writer.writerows(data)
+    # with open(output_file, "a", newline="") as file:
+    #     writer = csv.writer(file)
+    #     writer.writerows(data)
 
 
 for filename in os.listdir(directory_path):
