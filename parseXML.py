@@ -43,9 +43,9 @@ def parsePrint(filename):
         data.append([fieldItem.text.replace("Record.", "")])
     
     # Writing to CSV file
-    # with open(output_file, "a", newline="") as file:
-    #     writer = csv.writer(file)
-    #     writer.writerows(data)
+    with open(output_file, "a", newline="") as file:
+        writer = csv.writer(file)
+        writer.writerows(data)
 
 
 for filename in os.listdir(directory_path):
