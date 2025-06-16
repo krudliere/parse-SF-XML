@@ -36,6 +36,8 @@ def parsePrint(filename):
         # Find all fieldItem elements with namespace in flexipages
         fieldItems = root.findall('.//ns:flexiPageRegions/ns:itemInstances/ns:fieldInstance/ns:fieldItem', ns)
 
+    print(f"Number of field items found: {len(fieldItems)}")  # Debug: Show number of field items found
+    
     data = []
 
     for fieldItem in fieldItems:
